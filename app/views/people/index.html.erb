@@ -1,0 +1,37 @@
+<h1>Inscriptos</h1>
+<div class="row justify-content-between mb-2">
+  <div class="col-4">
+  <%= link_to "Agregar inscripto", 
+    new_person_path,
+    data: { turbo_frame: "modal"},
+    class: "btn btn-sm btn-primary" %>
+  </div>
+  <div class="col-6">
+    <%= form_with url: people_path, method: :get, data: { controller: "filter", filter_target: "form", turbo_frame: "table" } do |form| %>
+      <%= form.search_field :query,
+          placeholder: "Buscar...",
+          class: "form-control form-control-sm",
+          autocomplete: "off",
+          data: { action: "input->filter#search" }
+        %>
+    <% end %>
+  </div>
+</div>
+<%= turbo_frame_tag 'table', id: 'people_table' do %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>Empresa</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id='tbody_people'>
+        <%= render @people %>
+      </tbody>
+    </table>
+    <%== pagy_bootstrap_nav(@pagy) %>
+  </div>
+<% end %>

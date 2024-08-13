@@ -1,0 +1,24 @@
+<%= form_with(model: person) do |form| %>
+  <div>
+    <%= form.label :name,'Nombre ', class:"form-label" %>
+    <%= form.text_field :name, class: 'form-control', required: true %>
+      <%= inline_error_for(:name, person) %>
+  </div>
+
+  <div>
+    <%= form.label :dni,'DNI ', class:"form-label" %>
+    <%= form.text_field :dni, class: 'form-control' %>
+      <%= inline_error_for(:dni, person) %>
+  </div>
+
+  <div>
+    <%= form.label :company,'Empresa ', class:"form-label" %>
+    <%= form.text_field :company, class: 'form-control', required: true %>
+      <%= inline_error_for(:company, person) %>
+  </div>
+
+  <div class='mt-2'>
+    <%= form.submit 'Guardar', class: 'btn btn-sm btn-primary' %>
+    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancelar</button>
+  </div>
+<% end %>

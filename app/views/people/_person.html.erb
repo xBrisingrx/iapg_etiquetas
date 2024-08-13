@@ -1,0 +1,11 @@
+<%= tag.tr id: dom_id(person) do %>
+  <td><%= person.name %></td>
+  <td><%= person.dni %></td>
+  <td><%= person.company %></td>
+  <td>
+    <%= link_to person_path(person), 
+        class: "btn btn-warning btn-sm btn-sm btn-icon text-white", target: '_blank' ,title: 'Etiqueta' do %>
+        <i class="bi bi-pencil-square"></i>
+    <% end %>
+  </td>
+<% end %>
