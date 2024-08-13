@@ -16,10 +16,19 @@ class PeopleController < ApplicationController
     pdf = HexaPDF::Document.open( Rails.root.join('app/assets/images/etiqueta.pdf') )
     page = pdf.pages[0]
     canvas = page.canvas(type: :overlay)
-    company_x = (@person.company.length < 10 ) ? 50 : 30
-    name_x = ( @person.name.length > 18 ) ? 10 : 30
-    canvas.font('Helvetica', size: 22).text(@person.name, at: [name_x, 80])
-    canvas.font('Helvetica', size: 18).text(@person.company, at: [30, 40])
+    # company_x = (@person.company.length < 10 ) ? 50 : 30
+    if @person.name.length > 20
+      person_name = @person.name.split(' ')
+      first_name = person_name.pop
+      last_name = person_name.join(' ')
+      canvas.font('Helvetica', size: 22).text(last_name, at: [20, 80])
+      canvas.font('Helvetica', size: 22).text(first_name, at: [20, 50])
+      canvas.font('Helvetica', size: 18).text(@person.company, at: [30, 20])
+    else
+      name_x = ( @person.name.length > 18 ) ? 10 : 30
+      canvas.font('Helvetica', size: 22).text(@person.name, at: [name_x, 80])
+      canvas.font('Helvetica', size: 18).text(@person.company, at: [30, 40])
+    end
     pdf.write('public/etiqueta.pdf')
 
     respond_to do |format|
