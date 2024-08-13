@@ -63,6 +63,9 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace(@person)
+        }
         format.html { redirect_to person_url(@person), notice: "Person was successfully updated." }
         format.json { render :show, status: :ok, location: @person }
       else
@@ -84,15 +87,14 @@ class PeopleController < ApplicationController
 
   def import_data()
     xlsx = Roo::Spreadsheet.open('public/personas.xlsx')
-    xlsx.sheet(0).each_with_index(name: 'Nombre', dni: 'dni', 
+    xlsx.sheet(0).each_with_index(lastname: 'Apellido', name: 'Nombre',  
                                   company: 'Empresa') do |row, row_index|
                                   
         next if row_index == 0
 
         Person.create(
-            name: row[:name],
-            dni: row[:dni],
-            company: row[:company],
+            name: "#{row[:lastname]} #{row[:name]}",
+            company: row[:company]
         )
     end
   end

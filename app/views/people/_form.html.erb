@@ -6,12 +6,6 @@
   </div>
 
   <div>
-    <%= form.label :dni,'DNI ', class:"form-label" %>
-    <%= form.text_field :dni, class: 'form-control' %>
-      <%= inline_error_for(:dni, person) %>
-  </div>
-
-  <div>
     <%= form.label :company,'Empresa ', class:"form-label" %>
     <%= form.text_field :company, class: 'form-control', required: true %>
       <%= inline_error_for(:company, person) %>
