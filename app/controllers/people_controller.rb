@@ -17,7 +17,8 @@ class PeopleController < ApplicationController
     page = pdf.pages[0]
     canvas = page.canvas(type: :overlay)
     company_x = (@person.company.length < 10 ) ? 50 : 30
-    canvas.font('Helvetica', size: 22).text(@person.name, at: [30, 80])
+    name_x = ( @person.name.length > 18 ) ? 10 : 30
+    canvas.font('Helvetica', size: 22).text(@person.name, at: [name_x, 80])
     canvas.font('Helvetica', size: 18).text(@person.company, at: [30, 40])
     pdf.write('public/etiqueta.pdf')
 
