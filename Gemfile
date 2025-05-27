@@ -73,3 +73,5 @@ gem "hexapdf", "~> 0.45.0"
 gem "pagy", "~> 8.2"
 
 gem "roo", "~> 2.10"
+
+gem "rack-cors", "~> 3.0"
